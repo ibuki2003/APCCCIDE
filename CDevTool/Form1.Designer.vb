@@ -22,7 +22,8 @@ Partial Class MainForm
 	'コード エディターを使って変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-		Dim FontInfo2 As Sgry.Azuki.FontInfo = New Sgry.Azuki.FontInfo()
+		Dim FontInfo3 As Sgry.Azuki.FontInfo = New Sgry.Azuki.FontInfo()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
 		Me.SourceEditor = New Sgry.Azuki.WinForms.AzukiControl()
 		Me.TabControl = New System.Windows.Forms.TabControl()
 		Me.EditorTabPage = New System.Windows.Forms.TabPage()
@@ -72,10 +73,10 @@ Partial Class MainForm
 		Me.SourceEditor.DrawsSpace = True
 		Me.SourceEditor.FirstVisibleLine = 0
 		Me.SourceEditor.Font = New System.Drawing.Font("ＭＳ ゴシック", 12.0!)
-		FontInfo2.Name = "ＭＳ ゴシック"
-		FontInfo2.Size = 12
-		FontInfo2.Style = System.Drawing.FontStyle.Regular
-		Me.SourceEditor.FontInfo = FontInfo2
+		FontInfo3.Name = "ＭＳ ゴシック"
+		FontInfo3.Size = 12
+		FontInfo3.Style = System.Drawing.FontStyle.Regular
+		Me.SourceEditor.FontInfo = FontInfo3
 		Me.SourceEditor.ForeColor = System.Drawing.Color.Black
 		Me.SourceEditor.Location = New System.Drawing.Point(6, 6)
 		Me.SourceEditor.Name = "SourceEditor"
@@ -270,6 +271,7 @@ Partial Class MainForm
 		Me.Controls.Add(Me.StatusStrip1)
 		Me.Controls.Add(Me.TabControl)
 		Me.Controls.Add(Me.MenuStrip1)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MainMenuStrip = Me.MenuStrip1
 		Me.Name = "MainForm"
 		Me.Text = "CDevTool β -"
