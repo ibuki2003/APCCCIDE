@@ -195,6 +195,7 @@
 				OpeningFileName = ofd.FileName
 				IsSourceChanged = False
 				StatusLabel.Text = "ファイルを開きました"
+				SourceEditor.ClearHistory()
 				UpdateWindow()
 			End If
 		End If
@@ -251,60 +252,32 @@
 	End Sub
 
 	Private Sub ProgramRun()
-		StatusLabel.Text = "ビルドを開始しました"
-		Dim OutFileName, FileDir As String
-		FileDir = System.IO.Path.GetDirectoryName(OpeningFileName)
-		OutFileName = System.IO.Path.GetFileNameWithoutExtension(OpeningFileName) & ".exe"
-
-		'Processオブジェクトを作成
-		Dim p As New System.Diagnostics.Process()
-
-		'ComSpec(cmd.exe)のパスを取得して、FileNameプロパティに指定
-		p.StartInfo.FileName = System.Environment.GetEnvironmentVariable("ComSpec")
-		'出力を読み取れるようにする
-		p.StartInfo.UseShellExecute = False
-		p.StartInfo.RedirectStandardOutput = True
-		p.StartInfo.RedirectStandardError = True
-
-		p.StartInfo.RedirectStandardInput = False
-		'ウィンドウを表示しないようにする
-		p.StartInfo.CreateNoWindow = True
-		'コマンドラインを指定("/c"は実行後閉じるために必要)
-
-		p.StartInfo.Arguments = String.Format("/c g++ ""{0}"" -o ""{1}""", OpeningFileName, FileDir & "\" & OutFileName)
-
-		'起動
-		p.Start()
-
-		'出力を読み取る
-		Dim results As String = p.StandardError.ReadToEnd()
-
-
-		'プロセス終了まで待機する
-		'WaitForExitはReadToEndの後である必要がある
-		'(親プロセス、子プロセスでブロック防止のため)
-		p.WaitForExit()
-		p.Close()
-
-		StatusLabel.Text = "ビルドが完了しました"
-
-		If results <> "" Then
-			ErrorTextBox.Text = results
-			MessageBox.Show("エラーが発生しました。", "CDevTool", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-			StatusLabel.Text = "エラー内容を表示しました"
-			TabControl.SelectTab(1)
-		Else
+		If ProgramCompile(False) Then
+			Dim OutFileName, FileDir As String
+			FileDir = System.IO.Path.GetDirectoryName(OpeningFileName)
+			OutFileName = System.IO.Path.GetFileNameWithoutExtension(OpeningFileName) & ".exe"
 			StatusLabel.Text = "実行を開始しました"
 			System.Diagnostics.Process.Start("cmd", String.Format("/c cd ""{0}"" & ""{1}"" & pause", FileDir, OutFileName))
 		End If
-
-
 	End Sub
 
 	Private Sub ProgramDebug()
-		StatusLabel.Text = "ビルドを開始しました"
 		Dim OutFileName, FileDir As String
 		FileDir = System.IO.Path.GetDirectoryName(OpeningFileName)
+		OutFileName = System.IO.Path.GetFileNameWithoutExtension(OpeningFileName) & ".exe"
+		If ProgramCompile(True) Then
+			StatusLabel.Text = "デバッグを開始しました"
+			System.Diagnostics.Process.Start("cmd", String.Format("/c cd ""{0}"" & gdb ""{1}"" & pause", FileDir, OutFileName))
+		End If
+	End Sub
+
+	Private Function ProgramCompile(Debug As Boolean) As Boolean
+		SourceEditor.Document.Unmark(0, SourceEditor.Document.Length, MARKING_ERROR)
+		StatusLabel.Text = "ビルドを開始しました"
+		Me.Refresh()
+		Dim OutFileName, FileDir, FileName As String
+		FileDir = System.IO.Path.GetDirectoryName(OpeningFileName)
+		FileName = System.IO.Path.GetFileName(OpeningFileName)
 		OutFileName = System.IO.Path.GetFileNameWithoutExtension(OpeningFileName) & ".exe"
 
 		'Processオブジェクトを作成
@@ -322,7 +295,11 @@
 		p.StartInfo.CreateNoWindow = True
 		'コマンドラインを指定("/c"は実行後閉じるために必要)
 
-		p.StartInfo.Arguments = String.Format("/c g++ ""{0}"" -o ""{1}"" -O0 -g", OpeningFileName, FileDir & "\" & OutFileName)
+		If Debug Then
+			p.StartInfo.Arguments = String.Format("/c cd {0} & g++ ""{1}"" -o ""{2}"" -O0 -g", FileDir, FileName, OutFileName)
+		Else
+			p.StartInfo.Arguments = String.Format("/c cd {0} & g++ ""{1}"" -o ""{2}""", FileDir, FileName, OutFileName)
+		End If
 
 		'起動
 		p.Start()
@@ -339,17 +316,32 @@
 
 		StatusLabel.Text = "ビルドが完了しました"
 
+
 		If results <> "" Then
 			ErrorTextBox.Text = results
-			MessageBox.Show("エラーが発生しました。", "CDevTool", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-			StatusLabel.Text = "エラー内容を表示しました"
-			TabControl.SelectTab(1)
-		Else
-			StatusLabel.Text = "デバッグを開始しました"
-			System.Diagnostics.Process.Start("cmd", String.Format("/c cd ""{0}"" & gdb ""{1}"" & pause", FileDir, OutFileName))
-		End If
 
-	End Sub
+			' ErrorMsg
+			Dim mc As System.Text.RegularExpressions.MatchCollection =
+				System.Text.RegularExpressions.Regex.Matches(
+				results, "^[\w.]+:(\d+):(\d+): ", System.Text.RegularExpressions.RegexOptions.Multiline)
+			For Each m As System.Text.RegularExpressions.Match In mc
+				' Console.WriteLine(m.Value)
+				Dim row = Integer.Parse(m.Groups(1).Value)
+				Dim clm = Integer.Parse(m.Groups(2).Value)
+				Dim cidx = SourceEditor.Document.GetCharIndexFromLineColumnIndex(row - 1, clm - 1)
+
+				SourceEditor.Document.Mark(cidx, cidx + 1, MARKING_ERROR)
+			Next
+
+			MessageBox.Show("コンパイルエラーが発生しました。", "CDevTool", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+			StatusLabel.Text = "エラー内容を表示しました"
+			SourceEditor.Refresh()
+			Return False
+		Else
+			ErrorTextBox.Text = ""
+			Return True
+		End If
+	End Function
 
 End Class
 
