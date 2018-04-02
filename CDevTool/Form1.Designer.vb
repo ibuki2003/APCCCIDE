@@ -22,7 +22,7 @@ Partial Class MainForm
 	'コード エディターを使って変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-		Dim FontInfo1 As Sgry.Azuki.FontInfo = New Sgry.Azuki.FontInfo()
+		Dim FontInfo2 As Sgry.Azuki.FontInfo = New Sgry.Azuki.FontInfo()
 		Me.SourceEditor = New Sgry.Azuki.WinForms.AzukiControl()
 		Me.TabControl = New System.Windows.Forms.TabControl()
 		Me.EditorTabPage = New System.Windows.Forms.TabPage()
@@ -44,9 +44,9 @@ Partial Class MainForm
 		Me.DebugMenuItem = New System.Windows.Forms.ToolStripMenuItem()
 		Me.HelpMenu = New System.Windows.Forms.ToolStripMenuItem()
 		Me.AboutMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+		Me.CompilerCheckMenuItem = New System.Windows.Forms.ToolStripMenuItem()
 		Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
 		Me.StatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
-		Me.CompilerCheckMenuItem = New System.Windows.Forms.ToolStripMenuItem()
 		Me.TabControl.SuspendLayout()
 		Me.EditorTabPage.SuspendLayout()
 		Me.ErrorTabPage.SuspendLayout()
@@ -72,10 +72,10 @@ Partial Class MainForm
 		Me.SourceEditor.DrawsSpace = True
 		Me.SourceEditor.FirstVisibleLine = 0
 		Me.SourceEditor.Font = New System.Drawing.Font("ＭＳ ゴシック", 12.0!)
-		FontInfo1.Name = "ＭＳ ゴシック"
-		FontInfo1.Size = 12
-		FontInfo1.Style = System.Drawing.FontStyle.Regular
-		Me.SourceEditor.FontInfo = FontInfo1
+		FontInfo2.Name = "ＭＳ ゴシック"
+		FontInfo2.Size = 12
+		FontInfo2.Style = System.Drawing.FontStyle.Regular
+		Me.SourceEditor.FontInfo = FontInfo2
 		Me.SourceEditor.ForeColor = System.Drawing.Color.Black
 		Me.SourceEditor.Location = New System.Drawing.Point(6, 6)
 		Me.SourceEditor.Name = "SourceEditor"
@@ -123,6 +123,7 @@ Partial Class MainForm
 		'
 		'ErrorTextBox
 		'
+		Me.ErrorTextBox.Font = New System.Drawing.Font("ＭＳ ゴシック", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
 		Me.ErrorTextBox.Location = New System.Drawing.Point(6, 6)
 		Me.ErrorTextBox.Multiline = True
 		Me.ErrorTextBox.Name = "ErrorTextBox"
@@ -241,6 +242,12 @@ Partial Class MainForm
 		Me.AboutMenuItem.Size = New System.Drawing.Size(152, 22)
 		Me.AboutMenuItem.Text = "About..."
 		'
+		'CompilerCheckMenuItem
+		'
+		Me.CompilerCheckMenuItem.Name = "CompilerCheckMenuItem"
+		Me.CompilerCheckMenuItem.Size = New System.Drawing.Size(152, 22)
+		Me.CompilerCheckMenuItem.Text = "コンパイラ確認"
+		'
 		'StatusStrip1
 		'
 		Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StatusLabel})
@@ -254,12 +261,6 @@ Partial Class MainForm
 		'
 		Me.StatusLabel.Name = "StatusLabel"
 		Me.StatusLabel.Size = New System.Drawing.Size(0, 17)
-		'
-		'CompilerCheckMenuItem
-		'
-		Me.CompilerCheckMenuItem.Name = "CompilerCheckMenuItem"
-		Me.CompilerCheckMenuItem.Size = New System.Drawing.Size(152, 22)
-		Me.CompilerCheckMenuItem.Text = "コンパイラ確認"
 		'
 		'MainForm
 		'
