@@ -198,7 +198,7 @@ Partial Class MainForm
 		'SelectFontMenuItem
 		'
 		Me.SelectFontMenuItem.Name = "SelectFontMenuItem"
-		Me.SelectFontMenuItem.Size = New System.Drawing.Size(152, 22)
+		Me.SelectFontMenuItem.Size = New System.Drawing.Size(140, 22)
 		Me.SelectFontMenuItem.Text = "フォント設定..."
 		'
 		'ProgramMenu
@@ -273,7 +273,7 @@ Partial Class MainForm
 		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MainMenuStrip = Me.MenuStrip1
 		Me.Name = "MainForm"
-		Me.Text = "APCCCIDE β -"
+		Me.Text = "APCC C IDE β -"
 		Me.TabControl.ResumeLayout(False)
 		Me.EditorTabPage.ResumeLayout(False)
 		Me.ErrorTabPage.ResumeLayout(False)

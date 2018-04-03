@@ -9,7 +9,7 @@
 
 
 	Private Function ConfirmSave() As DialogResult
-		Return MessageBox.Show("保存していない変更があります。" & vbCrLf & "変更を保存しますか?", "APCCCIDE",
+		Return MessageBox.Show("保存していない変更があります。" & vbCrLf & "変更を保存しますか?", "APCC C IDE",
 			MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation)
 	End Function
 
@@ -70,11 +70,11 @@
 	End Sub
 
 	Private Sub AboutMenuItem_Click(sender As Object, e As EventArgs) Handles AboutMenuItem.Click
-		MsgBox("APCCCIDE " & VERSION & vbCrLf &
+		MsgBox("APCC C IDE " & VERSION & vbCrLf &
 				"Product by APCC" & vbCrLf &
 				"using Azuki 1.7.13",
 			MsgBoxStyle.OkOnly Or MsgBoxStyle.Information,
-			"About APCCCIDE")
+			"About APCC C IDE")
 	End Sub
 
 	Private Sub OpenMenuItem_Click(sender As Object, e As EventArgs) Handles OpenMenuItem.Click
@@ -135,9 +135,9 @@
 		p.Close()
 
 		If code <> 0 Then
-			MessageBox.Show("コンパイラが存在しません。インストールされているか確認してください。", "APCCCIDE")
+			MessageBox.Show("コンパイラが存在しません。インストールされているか確認してください。", "APCC C IDE")
 		Else
-			MessageBox.Show("コンパイラが存在しています。", "APCCCIDE")
+			MessageBox.Show("コンパイラが存在しています。", "APCC C IDE")
 		End If
 	End Sub
 
@@ -153,7 +153,7 @@
 		If IsSourceChanged Then
 			s = s & "*"
 		End If
-		s = s & " - APCCCIDE" & VERSION
+		s = s & " - APCC C IDE" & VERSION
 		Me.Text = s
 
 		If OpeningFileName = "" Then
@@ -333,7 +333,7 @@
 				SourceEditor.Document.Mark(cidx, cidx + 1, MARKING_ERROR)
 			Next
 
-			MessageBox.Show("コンパイルエラーが発生しました。", "APCCCIDE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+			MessageBox.Show("コンパイルエラーが発生しました。", "APCC C IDE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 			StatusLabel.Text = "エラー内容を表示しました"
 			SourceEditor.Refresh()
 			Return False
