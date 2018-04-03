@@ -185,7 +185,6 @@ Partial Class MainForm
 		'QuitMenuItem
 		'
 		Me.QuitMenuItem.Name = "QuitMenuItem"
-		Me.QuitMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Q), System.Windows.Forms.Keys)
 		Me.QuitMenuItem.Size = New System.Drawing.Size(238, 22)
 		Me.QuitMenuItem.Text = "終了"
 		'
