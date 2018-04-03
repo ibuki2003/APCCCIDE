@@ -22,7 +22,7 @@ Partial Class MainForm
 	'コード エディターを使って変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-		Dim FontInfo3 As Sgry.Azuki.FontInfo = New Sgry.Azuki.FontInfo()
+		Dim FontInfo1 As Sgry.Azuki.FontInfo = New Sgry.Azuki.FontInfo()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
 		Me.SourceEditor = New Sgry.Azuki.WinForms.AzukiControl()
 		Me.TabControl = New System.Windows.Forms.TabControl()
@@ -73,10 +73,10 @@ Partial Class MainForm
 		Me.SourceEditor.DrawsSpace = True
 		Me.SourceEditor.FirstVisibleLine = 0
 		Me.SourceEditor.Font = New System.Drawing.Font("ＭＳ ゴシック", 12.0!)
-		FontInfo3.Name = "ＭＳ ゴシック"
-		FontInfo3.Size = 12
-		FontInfo3.Style = System.Drawing.FontStyle.Regular
-		Me.SourceEditor.FontInfo = FontInfo3
+		FontInfo1.Name = "ＭＳ ゴシック"
+		FontInfo1.Size = 12
+		FontInfo1.Style = System.Drawing.FontStyle.Regular
+		Me.SourceEditor.FontInfo = FontInfo1
 		Me.SourceEditor.ForeColor = System.Drawing.Color.Black
 		Me.SourceEditor.Location = New System.Drawing.Point(6, 6)
 		Me.SourceEditor.Name = "SourceEditor"
@@ -213,7 +213,7 @@ Partial Class MainForm
 		'
 		Me.RunMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RunMenuItem, Me.DebugMenuItem})
 		Me.RunMenu.Name = "RunMenu"
-		Me.RunMenu.Size = New System.Drawing.Size(152, 22)
+		Me.RunMenu.Size = New System.Drawing.Size(98, 22)
 		Me.RunMenu.Text = "実行"
 		'
 		'RunMenuItem
@@ -240,13 +240,13 @@ Partial Class MainForm
 		'AboutMenuItem
 		'
 		Me.AboutMenuItem.Name = "AboutMenuItem"
-		Me.AboutMenuItem.Size = New System.Drawing.Size(152, 22)
+		Me.AboutMenuItem.Size = New System.Drawing.Size(142, 22)
 		Me.AboutMenuItem.Text = "About..."
 		'
 		'CompilerCheckMenuItem
 		'
 		Me.CompilerCheckMenuItem.Name = "CompilerCheckMenuItem"
-		Me.CompilerCheckMenuItem.Size = New System.Drawing.Size(152, 22)
+		Me.CompilerCheckMenuItem.Size = New System.Drawing.Size(142, 22)
 		Me.CompilerCheckMenuItem.Text = "コンパイラ確認"
 		'
 		'StatusStrip1

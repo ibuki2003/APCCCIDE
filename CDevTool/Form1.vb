@@ -177,8 +177,7 @@
 
 
 		Dim ofd As OpenFileDialog = New OpenFileDialog()
-		ofd.Filter = "Cファイル(*.c)|*.c|すべてのファイル(*.*)|*.*"
-		'ofd.Filter = "HTMLファイル(*.html;*.htm)|*.html;*.htm|すべてのファイル(*.*)|*.*"
+		ofd.Filter = "C/C++ファイル(*.c,*.cpp)|*.c;*.cpp|すべてのファイル(*.*)|*.*"
 		ofd.RestoreDirectory = True
 
 		If ofd.ShowDialog() = DialogResult.OK Then
@@ -221,8 +220,9 @@
 
 		Dim sfd As SaveFileDialog = New SaveFileDialog()
 
-		sfd.Filter = "Cファイル(*.c)|*.c|すべてのファイル(*.*)|*.*"
-		'ofd.Filter = "HTMLファイル(*.html;*.htm)|*.html;*.htm|すべてのファイル(*.*)|*.*"
+		sfd.Filter = "C/C++ファイル(*.c,*.cpp)|*.c;*.cpp|すべてのファイル(*.*)|*.*"
+
+
 		sfd.RestoreDirectory = True
 
 		If sfd.ShowDialog() = DialogResult.OK Then
