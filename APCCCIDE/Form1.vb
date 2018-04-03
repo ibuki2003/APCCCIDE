@@ -1,6 +1,6 @@
 ﻿Public Class MainForm
 
-	Const VERSION As String = "beta 0.2.1"
+	Const VERSION As String = "beta 0.3.0"
 
 	Dim IsSourceChanged As Boolean
 	Dim OpeningFileName As String
