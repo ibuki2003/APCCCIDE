@@ -9,7 +9,7 @@
 
 
 	Private Function ConfirmSave() As DialogResult
-		Return MessageBox.Show("保存していない変更があります。" & vbCrLf & "変更を保存しますか?", "CDevTool",
+		Return MessageBox.Show("保存していない変更があります。" & vbCrLf & "変更を保存しますか?", "APCCCIDE",
 			MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation)
 	End Function
 
@@ -70,11 +70,11 @@
 	End Sub
 
 	Private Sub AboutMenuItem_Click(sender As Object, e As EventArgs) Handles AboutMenuItem.Click
-		MsgBox("CDevTool " & VERSION & vbCrLf &
+		MsgBox("APCCCIDE " & VERSION & vbCrLf &
 				"Product by APCC" & vbCrLf &
 				"using Azuki 1.7.13",
 			MsgBoxStyle.OkOnly Or MsgBoxStyle.Information,
-			"About CDevTool")
+			"About APCCCIDE")
 	End Sub
 
 	Private Sub OpenMenuItem_Click(sender As Object, e As EventArgs) Handles OpenMenuItem.Click
@@ -135,9 +135,9 @@
 		p.Close()
 
 		If code <> 0 Then
-			MessageBox.Show("コンパイラが存在しません。インストールされているか確認してください。", "CDevTool")
+			MessageBox.Show("コンパイラが存在しません。インストールされているか確認してください。", "APCCCIDE")
 		Else
-			MessageBox.Show("コンパイラが存在しています。", "CDevTool")
+			MessageBox.Show("コンパイラが存在しています。", "APCCCIDE")
 		End If
 	End Sub
 
@@ -153,7 +153,7 @@
 		If IsSourceChanged Then
 			s = s & "*"
 		End If
-		s = s & " - CDevTool" & VERSION
+		s = s & " - APCCCIDE" & VERSION
 		Me.Text = s
 
 		If OpeningFileName = "" Then
@@ -333,7 +333,7 @@
 				SourceEditor.Document.Mark(cidx, cidx + 1, MARKING_ERROR)
 			Next
 
-			MessageBox.Show("コンパイルエラーが発生しました。", "CDevTool", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+			MessageBox.Show("コンパイルエラーが発生しました。", "APCCCIDE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 			StatusLabel.Text = "エラー内容を表示しました"
 			SourceEditor.Refresh()
 			Return False

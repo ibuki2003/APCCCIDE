@@ -273,7 +273,7 @@ Partial Class MainForm
 		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MainMenuStrip = Me.MenuStrip1
 		Me.Name = "MainForm"
-		Me.Text = "CDevTool β -"
+		Me.Text = "APCCCIDE β -"
 		Me.TabControl.ResumeLayout(False)
 		Me.EditorTabPage.ResumeLayout(False)
 		Me.ErrorTabPage.ResumeLayout(False)
