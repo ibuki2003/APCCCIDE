@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("APCCCIDE")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("APCC")>
-<Assembly: AssemblyProduct("APCC C IDE")>
+<Assembly: AssemblyProduct("APCCCIDE")>
 <Assembly: AssemblyCopyright("Copyright ©  2018")>
 <Assembly: AssemblyTrademark("")>
 

@@ -71,6 +71,8 @@ Public Class Settings
 			Instance = CType(obj, Settings)
 		Catch ex As FileNotFoundException
 			SaveToXmlFile()
+		Catch ex As DirectoryNotFoundException
+			SaveToXmlFile()
 		End Try
 
 
