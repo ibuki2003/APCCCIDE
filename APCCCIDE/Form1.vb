@@ -1,4 +1,5 @@
-﻿Public Class MainForm
+﻿Imports APCCCIDE.Settings
+Public Class MainForm
 
 	Dim IsSourceChanged As Boolean
 	Dim OpeningFileName As String
@@ -16,7 +17,9 @@
 		SourceEditor.AutoIndentHook = Sgry.Azuki.AutoIndentHooks.CHook
 		IsSourceChanged = False
 		OpeningFileName = ""
-		SourceEditor.Font = New System.Drawing.Font(My.Settings.FontName, My.Settings.FontSize)
+
+		Settings.LoadFromXmlFile()
+		SourceEditor.Font = New System.Drawing.Font(Settings.Instance.FontName, Settings.Instance.FontSize)
 		UpdateWindow()
 
 
@@ -38,9 +41,8 @@
 			'TextBox1のフォントと色を変える
 			SourceEditor.Font = fd.Font
 
-			My.Settings.FontName = fd.Font.Name
-			My.Settings.FontSize = fd.Font.Size
-			My.Settings.Save()
+			Settings.Instance.FontName = fd.Font.Name
+			Settings.Instance.FontSize = fd.Font.Size
 		End If
 	End Sub
 
@@ -57,6 +59,7 @@
 				SaveFile()
 			End If
 		End If
+		Settings.SaveToXmlFile()
 	End Sub
 
 	Private Sub SourceChanged(sender As Object, e As EventArgs) Handles SourceEditor.TextChanged

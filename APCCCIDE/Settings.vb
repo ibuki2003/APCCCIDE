@@ -1,4 +1,6 @@
-﻿Imports System
+﻿' Thx 4 https://dobon.net/vb/dotnet/programing/storeappsettings.html
+
+Imports System
 Imports System.IO
 Imports System.Text
 Imports System.Runtime.Serialization
@@ -9,32 +11,32 @@ Imports Microsoft.Win32
 <Serializable()>
 Public Class Settings
 	'設定を保存するフィールド
-	Private _text As String
-	Private _number As Integer
+	Private _fontName As String
+	Private _fontSize As Integer
 
 	'設定のプロパティ
-	Public Property Text() As String
+	Public Property FontName() As String
 		Get
-			Return _text
+			Return _fontName
 		End Get
 		Set(ByVal Value As String)
-			_text = Value
+			_fontName = Value
 		End Set
 	End Property
 
-	Public Property Number() As Integer
+	Public Property FontSize() As Integer
 		Get
-			Return _number
+			Return _fontSize
 		End Get
 		Set(ByVal Value As Integer)
-			_number = Value
+			_fontSize = Value
 		End Set
 	End Property
 
 	'コンストラクタ
 	Public Sub New()
-		_text = "Text"
-		_number = 0
+		_fontName = "ＭＳ ゴシック"
+		_fontSize = 16
 	End Sub
 
 	'Settingsクラスのただ一つのインスタンス
@@ -59,13 +61,19 @@ Public Class Settings
 	Public Shared Sub LoadFromXmlFile()
 		Dim p As String = GetSettingPath()
 
-		Dim sr As New StreamReader(p, New UTF8Encoding(False))
-		Dim xs As New System.Xml.Serialization.XmlSerializer(GetType(Settings))
-		'読み込んで逆シリアル化する
-		Dim obj As Object = xs.Deserialize(sr)
-		sr.Close()
+		Try
+			Dim sr As New StreamReader(p, New UTF8Encoding(False))
+			Dim xs As New System.Xml.Serialization.XmlSerializer(GetType(Settings))
+			'読み込んで逆シリアル化する
+			Dim obj As Object = xs.Deserialize(sr)
+			sr.Close()
 
-		Instance = CType(obj, Settings)
+			Instance = CType(obj, Settings)
+		Catch ex As FileNotFoundException
+			SaveToXmlFile()
+		End Try
+
+
 	End Sub
 
 	''' <summary>
@@ -73,42 +81,22 @@ Public Class Settings
 	''' </summary>
 	Public Shared Sub SaveToXmlFile()
 		Dim p As String = GetSettingPath()
+		Try
+			Dim sw As New StreamWriter(p, False, New UTF8Encoding(False))
+			Dim xs As New System.Xml.Serialization.XmlSerializer(GetType(Settings))
+			'シリアル化して書き込む
+			xs.Serialize(sw, Instance)
+			sw.Close()
+		Catch ex As DirectoryNotFoundException
+			System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(p))
+			Dim sw As New StreamWriter(p, False, New UTF8Encoding(False))
+			Dim xs As New System.Xml.Serialization.XmlSerializer(GetType(Settings))
+			'シリアル化して書き込む
+			xs.Serialize(sw, Instance)
+			sw.Close()
+		End Try
 
-		Dim sw As New StreamWriter(p, False, New UTF8Encoding(False))
-		Dim xs As New System.Xml.Serialization.XmlSerializer(GetType(Settings))
-		'シリアル化して書き込む
-		xs.Serialize(sw, Instance)
-		sw.Close()
 	End Sub
-
-	''' <summary>
-	''' 設定をバイナリファイルから読み込み復元する
-	''' </summary>
-	Public Shared Sub LoadFromBinaryFile()
-		Dim p As String = GetSettingPath()
-
-		Dim fs As New FileStream(p, FileMode.Open, FileAccess.Read)
-		Dim bf As New BinaryFormatter
-		'読み込んで逆シリアル化する
-		Dim obj As Object = bf.Deserialize(fs)
-		fs.Close()
-
-		Instance = CType(obj, Settings)
-	End Sub
-
-	''' <summary>
-	''' 現在の設定をバイナリファイルに保存する
-	''' </summary>
-	Public Shared Sub SaveToBinaryFile()
-		Dim p As String = GetSettingPath()
-
-		Dim fs As New FileStream(p, FileMode.Create, FileAccess.Write)
-		Dim bf As New BinaryFormatter
-		'シリアル化して書き込む
-		bf.Serialize(fs, Instance)
-		fs.Close()
-	End Sub
-
 
 	Private Shared Function GetSettingPath() As String
 		Dim p As String = Path.Combine(
