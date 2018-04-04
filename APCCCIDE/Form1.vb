@@ -1,7 +1,5 @@
 ﻿Public Class MainForm
 
-	Const VERSION As String = "beta 0.3.0"
-
 	Dim IsSourceChanged As Boolean
 	Dim OpeningFileName As String
 	Const MARKING_FOUND As Integer = 0
@@ -9,7 +7,7 @@
 
 
 	Private Function ConfirmSave() As DialogResult
-		Return MessageBox.Show("保存していない変更があります。" & vbCrLf & "変更を保存しますか?", "APCC C IDE",
+		Return MessageBox.Show("保存していない変更があります。" & vbCrLf & "変更を保存しますか?", Application.ProductName,
 			MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation)
 	End Function
 
@@ -70,11 +68,11 @@
 	End Sub
 
 	Private Sub AboutMenuItem_Click(sender As Object, e As EventArgs) Handles AboutMenuItem.Click
-		MsgBox("APCC C IDE " & VERSION & vbCrLf &
-				"Product by APCC" & vbCrLf &
+		MsgBox(Application.ProductName & " " & Application.ProductVersion & vbCrLf &
+				"Product by " & Application.CompanyName & vbCrLf &
 				"using Azuki 1.7.13",
 			MsgBoxStyle.OkOnly Or MsgBoxStyle.Information,
-			"About APCC C IDE")
+			"About " & Application.ProductName)
 	End Sub
 
 	Private Sub OpenMenuItem_Click(sender As Object, e As EventArgs) Handles OpenMenuItem.Click
@@ -135,9 +133,9 @@
 		p.Close()
 
 		If code <> 0 Then
-			MessageBox.Show("コンパイラが存在しません。インストールされているか確認してください。", "APCC C IDE")
+			MessageBox.Show("コンパイラが存在しません。インストールされているか確認してください。", Application.ProductName)
 		Else
-			MessageBox.Show("コンパイラが存在しています。", "APCC C IDE")
+			MessageBox.Show("コンパイラが存在しています。", Application.ProductName)
 		End If
 	End Sub
 
@@ -153,7 +151,7 @@
 		If IsSourceChanged Then
 			s = s & "*"
 		End If
-		s = s & " - APCC C IDE" & VERSION
+		s = s & " - " & Application.ProductName & " " & Application.ProductVersion
 		Me.Text = s
 
 		If OpeningFileName = "" Then
@@ -333,7 +331,7 @@
 				SourceEditor.Document.Mark(cidx, cidx + 1, MARKING_ERROR)
 			Next
 
-			MessageBox.Show("コンパイルエラーが発生しました。", "APCC C IDE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+			MessageBox.Show("コンパイルエラーが発生しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 			StatusLabel.Text = "エラー内容を表示しました"
 			SourceEditor.Refresh()
 			Return False
