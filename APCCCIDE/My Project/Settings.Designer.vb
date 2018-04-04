@@ -53,30 +53,6 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("16")>  _
-        Public Property FontSize() As Integer
-            Get
-                Return CType(Me("FontSize"),Integer)
-            End Get
-            Set
-                Me("FontSize") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("ＭＳ ゴシック")>  _
-        Public Property FontName() As String
-            Get
-                Return CType(Me("FontName"),String)
-            End Get
-            Set
-                Me("FontName") = value
-            End Set
-        End Property
     End Class
 End Namespace
 
