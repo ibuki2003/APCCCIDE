@@ -91,10 +91,7 @@ Public Class MainForm
 	End Sub
 
 	Private Sub NewFileMenuItem_Click(sender As Object, e As EventArgs) Handles NewFileMenuItem.Click
-		SourceEditor.Text = ""
-		IsSourceChanged = False
-		OpeningFileName = ""
-		UpdateWindow()
+		NewFile()
 	End Sub
 
 	Private Sub RunMenuItem_Click(sender As Object, e As EventArgs) Handles RunMenuItem.Click
@@ -245,6 +242,23 @@ Public Class MainForm
 				StatusLabel.Text = "ファイルに保存しました"
 			End If
 		End If
+	End Sub
+
+	Private Sub NewFile()
+		If IsSourceChanged Then
+			Dim r = ConfirmSave()
+			If r = DialogResult.Yes Then
+				SaveFile()
+			ElseIf r = DialogResult.Cancel Then
+				Return
+			End If
+		End If
+
+		SourceEditor.Text = ""
+		IsSourceChanged = False
+		OpeningFileName = ""
+		SourceEditor.Document.IsDirty = False
+		UpdateWindow()
 	End Sub
 
 	Private Sub Find()
