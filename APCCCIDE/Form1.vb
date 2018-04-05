@@ -121,13 +121,15 @@ Public Class MainForm
 		p.StartInfo.CreateNoWindow = True
 		'コマンドラインを指定("/c"は実行後閉じるために必要)
 
-		p.StartInfo.Arguments = "/c g+ --version"
+		p.StartInfo.Arguments = "/c g++ --version"
 
 		'起動
 		p.Start()
-
+		p.WaitForExit()
 
 		Dim code As Integer = p.ExitCode
+
+		p.Close()
 
 		'プロセス終了まで待機する
 		'WaitForExitはReadToEndの後である必要がある
