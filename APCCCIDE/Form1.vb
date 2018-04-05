@@ -134,8 +134,6 @@ Public Class MainForm
 		'プロセス終了まで待機する
 		'WaitForExitはReadToEndの後である必要がある
 		'(親プロセス、子プロセスでブロック防止のため)
-		p.WaitForExit()
-		p.Close()
 
 		If code <> 0 Then
 			MessageBox.Show("コンパイラが存在しません。インストールされているか確認してください。", Application.ProductName)
