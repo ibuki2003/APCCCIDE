@@ -196,6 +196,7 @@ Public Class MainForm
 				IsSourceChanged = False
 				StatusLabel.Text = "ファイルを開きました"
 				SourceEditor.ClearHistory()
+				SourceEditor.Document.IsDirty = False
 				UpdateWindow()
 			End If
 		End If
@@ -212,8 +213,8 @@ Public Class MainForm
 			sw.Close()
 			IsSourceChanged = False
 			StatusLabel.Text = "ファイルに保存しました"
+			SourceEditor.Document.IsDirty = False
 			UpdateWindow()
-
 		End If
 	End Sub
 
@@ -239,6 +240,7 @@ Public Class MainForm
 
 				OpeningFileName = sfd.FileName
 				IsSourceChanged = False
+				SourceEditor.Document.IsDirty = False
 				UpdateWindow()
 				StatusLabel.Text = "ファイルに保存しました"
 			End If
