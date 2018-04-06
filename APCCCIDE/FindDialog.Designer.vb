@@ -22,28 +22,27 @@ Partial Class FindDialog
 	'コード エディターを使って変更しないでください。
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-		Me.TextBox1 = New System.Windows.Forms.TextBox()
-		Me.TextBox2 = New System.Windows.Forms.TextBox()
+		Me.SearchBox = New System.Windows.Forms.TextBox()
+		Me.ReplaceBox = New System.Windows.Forms.TextBox()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.Label2 = New System.Windows.Forms.Label()
-		Me.Button1 = New System.Windows.Forms.Button()
-		Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-		Me.Button2 = New System.Windows.Forms.Button()
+		Me.SearchButton = New System.Windows.Forms.Button()
+		Me.ReplaceButton = New System.Windows.Forms.Button()
 		Me.SuspendLayout()
 		'
-		'TextBox1
+		'SearchBox
 		'
-		Me.TextBox1.Location = New System.Drawing.Point(102, 12)
-		Me.TextBox1.Name = "TextBox1"
-		Me.TextBox1.Size = New System.Drawing.Size(176, 19)
-		Me.TextBox1.TabIndex = 0
+		Me.SearchBox.Location = New System.Drawing.Point(102, 12)
+		Me.SearchBox.Name = "SearchBox"
+		Me.SearchBox.Size = New System.Drawing.Size(176, 19)
+		Me.SearchBox.TabIndex = 0
 		'
-		'TextBox2
+		'ReplaceBox
 		'
-		Me.TextBox2.Location = New System.Drawing.Point(102, 37)
-		Me.TextBox2.Name = "TextBox2"
-		Me.TextBox2.Size = New System.Drawing.Size(176, 19)
-		Me.TextBox2.TabIndex = 1
+		Me.ReplaceBox.Location = New System.Drawing.Point(102, 37)
+		Me.ReplaceBox.Name = "ReplaceBox"
+		Me.ReplaceBox.Size = New System.Drawing.Size(176, 19)
+		Me.ReplaceBox.TabIndex = 1
 		'
 		'Label1
 		'
@@ -63,58 +62,47 @@ Partial Class FindDialog
 		Me.Label2.TabIndex = 3
 		Me.Label2.Text = "置換する文字列"
 		'
-		'Button1
+		'SearchButton
 		'
-		Me.Button1.Location = New System.Drawing.Point(284, 12)
-		Me.Button1.Name = "Button1"
-		Me.Button1.Size = New System.Drawing.Size(55, 19)
-		Me.Button1.TabIndex = 4
-		Me.Button1.Text = "検索"
-		Me.Button1.UseVisualStyleBackColor = True
+		Me.SearchButton.Location = New System.Drawing.Point(284, 12)
+		Me.SearchButton.Name = "SearchButton"
+		Me.SearchButton.Size = New System.Drawing.Size(55, 19)
+		Me.SearchButton.TabIndex = 4
+		Me.SearchButton.Text = "検索"
+		Me.SearchButton.UseVisualStyleBackColor = True
 		'
-		'CheckBox1
+		'ReplaceButton
 		'
-		Me.CheckBox1.AutoSize = True
-		Me.CheckBox1.Location = New System.Drawing.Point(14, 70)
-		Me.CheckBox1.Name = "CheckBox1"
-		Me.CheckBox1.Size = New System.Drawing.Size(124, 16)
-		Me.CheckBox1.TabIndex = 5
-		Me.CheckBox1.Text = "正規表現を使用する"
-		Me.CheckBox1.UseVisualStyleBackColor = True
-		'
-		'Button2
-		'
-		Me.Button2.Location = New System.Drawing.Point(284, 37)
-		Me.Button2.Name = "Button2"
-		Me.Button2.Size = New System.Drawing.Size(54, 19)
-		Me.Button2.TabIndex = 6
-		Me.Button2.Text = "置換"
-		Me.Button2.UseVisualStyleBackColor = True
+		Me.ReplaceButton.Location = New System.Drawing.Point(284, 37)
+		Me.ReplaceButton.Name = "ReplaceButton"
+		Me.ReplaceButton.Size = New System.Drawing.Size(54, 19)
+		Me.ReplaceButton.TabIndex = 6
+		Me.ReplaceButton.Text = "置換"
+		Me.ReplaceButton.UseVisualStyleBackColor = True
 		'
 		'FindDialog
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(351, 98)
-		Me.Controls.Add(Me.Button2)
-		Me.Controls.Add(Me.CheckBox1)
-		Me.Controls.Add(Me.Button1)
+		Me.ClientSize = New System.Drawing.Size(351, 67)
+		Me.Controls.Add(Me.ReplaceButton)
+		Me.Controls.Add(Me.SearchButton)
 		Me.Controls.Add(Me.Label2)
 		Me.Controls.Add(Me.Label1)
-		Me.Controls.Add(Me.TextBox2)
-		Me.Controls.Add(Me.TextBox1)
+		Me.Controls.Add(Me.ReplaceBox)
+		Me.Controls.Add(Me.SearchBox)
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
 		Me.Name = "FindDialog"
-		Me.Text = "FindDialog"
+		Me.Text = "検索と置換"
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
 	End Sub
 
-	Friend WithEvents TextBox1 As TextBox
-	Friend WithEvents TextBox2 As TextBox
+	Friend WithEvents SearchBox As TextBox
+	Friend WithEvents ReplaceBox As TextBox
 	Friend WithEvents Label1 As Label
 	Friend WithEvents Label2 As Label
-	Friend WithEvents Button1 As Button
-	Friend WithEvents CheckBox1 As CheckBox
-	Friend WithEvents Button2 As Button
+	Friend WithEvents SearchButton As Button
+	Friend WithEvents ReplaceButton As Button
 End Class

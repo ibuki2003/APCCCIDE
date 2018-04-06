@@ -151,6 +151,13 @@ Public Class MainForm
 		End If
 	End Sub
 
+	Private Sub FindMenuItem_Click(sender As Object, e As EventArgs) Handles FindMenuItem.Click
+		'表示させるフォームのインスタンスを作成
+		Dim f As New FindDialog()
+		'自分を所有者としてFormをモードレスで表示する
+		f.Show(Me)
+	End Sub
+
 
 
 	Private Sub UpdateWindow()
@@ -274,12 +281,10 @@ Public Class MainForm
 	End Sub
 
 	Public Sub Find(str As String)
-		If str = "" Then
-			SourceEditor.Document.WatchPatterns.Unregister(MARKING_FOUND)
-		Else
-			Dim WP As Sgry.Azuki.WatchPattern = New Sgry.Azuki.WatchPattern(MARKING_FOUND, New System.Text.RegularExpressions.Regex(str, System.Text.RegularExpressions.RegexOptions.Multiline))
-			SourceEditor.Document.WatchPatterns.Register(WP)
-		End If
+
+		Dim WP As Sgry.Azuki.WatchPattern = New Sgry.Azuki.WatchPattern(MARKING_FOUND, New System.Text.RegularExpressions.Regex(str, System.Text.RegularExpressions.RegexOptions.Multiline))
+		SourceEditor.Document.WatchPatterns.Register(WP)
+		SourceEditor.Refresh()
 
 	End Sub
 

@@ -48,6 +48,7 @@ Partial Class MainForm
 		Me.CompilerCheckMenuItem = New System.Windows.Forms.ToolStripMenuItem()
 		Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
 		Me.StatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
+		Me.FindMenuItem = New System.Windows.Forms.ToolStripMenuItem()
 		Me.TabControl.SuspendLayout()
 		Me.EditorTabPage.SuspendLayout()
 		Me.ErrorTabPage.SuspendLayout()
@@ -190,7 +191,7 @@ Partial Class MainForm
 		'
 		'EditMenu
 		'
-		Me.EditMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SelectFontMenuItem})
+		Me.EditMenu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SelectFontMenuItem, Me.FindMenuItem})
 		Me.EditMenu.Name = "EditMenu"
 		Me.EditMenu.Size = New System.Drawing.Size(57, 20)
 		Me.EditMenu.Text = "編集(&E)"
@@ -198,7 +199,7 @@ Partial Class MainForm
 		'SelectFontMenuItem
 		'
 		Me.SelectFontMenuItem.Name = "SelectFontMenuItem"
-		Me.SelectFontMenuItem.Size = New System.Drawing.Size(140, 22)
+		Me.SelectFontMenuItem.Size = New System.Drawing.Size(170, 22)
 		Me.SelectFontMenuItem.Text = "フォント設定..."
 		'
 		'ProgramMenu
@@ -262,6 +263,13 @@ Partial Class MainForm
 		Me.StatusLabel.Name = "StatusLabel"
 		Me.StatusLabel.Size = New System.Drawing.Size(0, 17)
 		'
+		'FindMenuItem
+		'
+		Me.FindMenuItem.Name = "FindMenuItem"
+		Me.FindMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.F), System.Windows.Forms.Keys)
+		Me.FindMenuItem.Size = New System.Drawing.Size(170, 22)
+		Me.FindMenuItem.Text = "検索と置換"
+		'
 		'MainForm
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -311,4 +319,5 @@ Partial Class MainForm
 	Friend WithEvents StatusStrip1 As StatusStrip
 	Friend WithEvents StatusLabel As ToolStripStatusLabel
 	Friend WithEvents CompilerCheckMenuItem As ToolStripMenuItem
+	Friend WithEvents FindMenuItem As ToolStripMenuItem
 End Class
