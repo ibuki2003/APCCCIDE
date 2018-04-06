@@ -95,6 +95,8 @@ Partial Class FindDialog
 		'CaseCheckBox
 		'
 		Me.CaseCheckBox.AutoSize = True
+		Me.CaseCheckBox.Checked = True
+		Me.CaseCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
 		Me.CaseCheckBox.Location = New System.Drawing.Point(144, 72)
 		Me.CaseCheckBox.Name = "CaseCheckBox"
 		Me.CaseCheckBox.Size = New System.Drawing.Size(123, 16)
