@@ -28,6 +28,8 @@ Partial Class FindDialog
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.SearchButton = New System.Windows.Forms.Button()
 		Me.ReplaceButton = New System.Windows.Forms.Button()
+		Me.RegexCheckBox = New System.Windows.Forms.CheckBox()
+		Me.CaseCheckBox = New System.Windows.Forms.CheckBox()
 		Me.SuspendLayout()
 		'
 		'SearchBox
@@ -80,11 +82,33 @@ Partial Class FindDialog
 		Me.ReplaceButton.Text = "置換"
 		Me.ReplaceButton.UseVisualStyleBackColor = True
 		'
+		'RegexCheckBox
+		'
+		Me.RegexCheckBox.AutoSize = True
+		Me.RegexCheckBox.Location = New System.Drawing.Point(14, 72)
+		Me.RegexCheckBox.Name = "RegexCheckBox"
+		Me.RegexCheckBox.Size = New System.Drawing.Size(124, 16)
+		Me.RegexCheckBox.TabIndex = 7
+		Me.RegexCheckBox.Text = "正規表現を使用する"
+		Me.RegexCheckBox.UseVisualStyleBackColor = True
+		'
+		'CaseCheckBox
+		'
+		Me.CaseCheckBox.AutoSize = True
+		Me.CaseCheckBox.Location = New System.Drawing.Point(144, 72)
+		Me.CaseCheckBox.Name = "CaseCheckBox"
+		Me.CaseCheckBox.Size = New System.Drawing.Size(123, 16)
+		Me.CaseCheckBox.TabIndex = 8
+		Me.CaseCheckBox.Text = "大/小文字を同一視"
+		Me.CaseCheckBox.UseVisualStyleBackColor = True
+		'
 		'FindDialog
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(351, 67)
+		Me.ClientSize = New System.Drawing.Size(351, 100)
+		Me.Controls.Add(Me.CaseCheckBox)
+		Me.Controls.Add(Me.RegexCheckBox)
 		Me.Controls.Add(Me.ReplaceButton)
 		Me.Controls.Add(Me.SearchButton)
 		Me.Controls.Add(Me.Label2)
@@ -105,4 +129,6 @@ Partial Class FindDialog
 	Friend WithEvents Label2 As Label
 	Friend WithEvents SearchButton As Button
 	Friend WithEvents ReplaceButton As Button
+	Friend WithEvents RegexCheckBox As CheckBox
+	Friend WithEvents CaseCheckBox As CheckBox
 End Class

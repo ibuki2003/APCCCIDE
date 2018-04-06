@@ -18,10 +18,10 @@
 
 
 	Private Sub Find()
-		MainForm.Find(SearchBox.Text)
+		MainForm.Find(SearchBox.Text, RegexCheckBox.Checked, CaseCheckBox.Checked)
 	End Sub
 
 	Private Sub Replace()
-		MainForm.Replace(SearchBox.Text, ReplaceBox.Text)
+		MainForm.Replace(SearchBox.Text, ReplaceBox.Text, RegexCheckBox.Checked, CaseCheckBox.Checked)
 	End Sub
 End Class

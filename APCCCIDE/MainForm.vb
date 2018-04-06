@@ -1,4 +1,5 @@
-﻿Imports APCCCIDE.Settings
+﻿Imports System.Text.RegularExpressions
+Imports APCCCIDE.Settings
 Public Class MainForm
 
 	Dim IsSourceChanged As Boolean
@@ -280,16 +281,29 @@ Public Class MainForm
 		UpdateWindow()
 	End Sub
 
-	Public Sub Find(str As String)
-
-		Dim WP As Sgry.Azuki.WatchPattern = New Sgry.Azuki.WatchPattern(MARKING_FOUND, New System.Text.RegularExpressions.Regex(str, System.Text.RegularExpressions.RegexOptions.Multiline))
+	Public Sub Find(str As String, useRegex As Boolean, ignoreCase As Boolean)
+		If Not useRegex Then
+			str = RegexEscape(str)
+		End If
+		Dim WP As Sgry.Azuki.WatchPattern = New Sgry.Azuki.WatchPattern(MARKING_FOUND, New Regex(str,
+																								RegexOptions.Multiline Or
+																								RegexOptions.ECMAScript Or
+																								RegexOptions.Compiled Or
+																								If(ignoreCase, RegexOptions.IgnoreCase, 0)))
 		SourceEditor.Document.WatchPatterns.Register(WP)
 		SourceEditor.Refresh()
 
 	End Sub
 
-	Public Sub Replace(before As String, after As String)
-		Dim r As System.Text.RegularExpressions.Regex = New System.Text.RegularExpressions.Regex(before, System.Text.RegularExpressions.RegexOptions.Multiline)
+	Public Sub Replace(before As String, after As String, useRegex As Boolean, ignoreCase As Boolean)
+		If Not useRegex Then
+			before = RegexEscape(before)
+		End If
+		Dim r As System.Text.RegularExpressions.Regex = New Regex(before,
+																RegexOptions.Multiline Or
+																RegexOptions.ECMAScript Or
+																RegexOptions.Compiled Or
+																If(ignoreCase, RegexOptions.IgnoreCase, 0))
 		SourceEditor.Text = r.Replace(SourceEditor.Text, after)
 	End Sub
 
@@ -385,5 +399,12 @@ Public Class MainForm
 		End If
 	End Function
 
+	Public Function RegexEscape(str As String) As String
+		Dim r As Regex = New Regex("([\\*+\.?{}()\[\]^$\-|])", RegexOptions.Compiled)
+		str = r.Replace(str, "\$1")
+		Return str
+	End Function
+
 End Class
+
 
