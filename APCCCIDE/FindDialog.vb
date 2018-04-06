@@ -7,12 +7,19 @@
 		Replace()
 	End Sub
 
-	Private Sub SearchBox_TextChanged(sender As Object, e As EventArgs) Handles SearchBox.Enter
-		Find()
+	Private Sub SearchBox_TextChanged(sender As Object, e As KeyPressEventArgs) Handles SearchBox.KeyPress
+		If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Enter) Then
+			Find()
+			e.Handled = True
+		End If
+
 	End Sub
 
-	Private Sub ReplaceBox_TextChanged(sender As Object, e As EventArgs) Handles ReplaceBox.Enter
-		Replace()
+	Private Sub ReplaceBox_TextChanged(sender As Object, e As KeyPressEventArgs) Handles ReplaceBox.KeyPress
+		If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Enter) Then
+			Replace()
+			e.Handled = True
+		End If
 	End Sub
 
 
