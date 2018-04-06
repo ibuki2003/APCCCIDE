@@ -12,6 +12,12 @@ Public Class MainForm
 			MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation)
 	End Function
 
+	Public Sub NewLine(ui As Sgry.Azuki.IUserInterface)
+		ui.Document.Replace(vbNewLine)
+	End Sub
+
+
+
 	Private Sub Init(sender As Object, e As EventArgs) Handles MyBase.Load
 		SourceEditor.Highlighter = Sgry.Azuki.Highlighter.Highlighters.Cpp
 		SourceEditor.AutoIndentHook = Sgry.Azuki.AutoIndentHooks.CHook
@@ -28,6 +34,12 @@ Public Class MainForm
 
 		SourceEditor.ColorScheme.SetMarkingDecoration(MARKING_FOUND, New Sgry.Azuki.BgColorTextDecoration(Color.SkyBlue))
 		SourceEditor.ColorScheme.SetMarkingDecoration(MARKING_ERROR, New Sgry.Azuki.UnderlineTextDecoration(Sgry.Azuki.LineStyle.Waved, Color.Red))
+
+		SourceEditor.SetKeyBind(Keys.Control Or Keys.Enter, AddressOf NewLine)
+		SourceEditor.SetKeyBind(Keys.Shift Or Keys.Enter, AddressOf NewLine)
+		SourceEditor.SetKeyBind(Keys.Shift Or Keys.Back, AddressOf Sgry.Azuki.Actions.BackSpace)
+
+
 
 	End Sub
 
