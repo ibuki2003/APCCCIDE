@@ -273,11 +273,19 @@ Public Class MainForm
 		UpdateWindow()
 	End Sub
 
-	Private Sub Find()
-		SourceEditor.Document.Mark(0, 10, MARKING_FOUND)
-		SourceEditor.Update()
-		SourceEditor.UpdateCaretGraphic()
+	Public Sub Find(str As String)
+		If str = "" Then
+			SourceEditor.Document.WatchPatterns.Unregister(MARKING_FOUND)
+		Else
+			Dim WP As Sgry.Azuki.WatchPattern = New Sgry.Azuki.WatchPattern(MARKING_FOUND, New System.Text.RegularExpressions.Regex(str, System.Text.RegularExpressions.RegexOptions.Multiline))
+			SourceEditor.Document.WatchPatterns.Register(WP)
+		End If
 
+	End Sub
+
+	Public Sub Replace(before As String, after As String)
+		Dim r As System.Text.RegularExpressions.Regex = New System.Text.RegularExpressions.Regex(before, System.Text.RegularExpressions.RegexOptions.Multiline)
+		SourceEditor.Text = r.Replace(SourceEditor.Text, after)
 	End Sub
 
 	Private Sub ProgramRun()
