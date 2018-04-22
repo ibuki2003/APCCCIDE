@@ -313,7 +313,7 @@ Public Class MainForm
 			FileDir = System.IO.Path.GetDirectoryName(OpeningFileName)
 			OutFileName = System.IO.Path.GetFileNameWithoutExtension(OpeningFileName) & ".exe"
 			StatusLabel.Text = "実行を開始しました"
-			System.Diagnostics.Process.Start("cmd", String.Format("/c cd ""{0}"" & ""{1}"" & pause", FileDir, OutFileName))
+			System.Diagnostics.Process.Start("cmd", String.Format("/c chcp 65001 & cd ""{0}"" & ""{1}"" & pause", FileDir, OutFileName))
 		End If
 	End Sub
 
@@ -323,7 +323,7 @@ Public Class MainForm
 		OutFileName = System.IO.Path.GetFileNameWithoutExtension(OpeningFileName) & ".exe"
 		If ProgramCompile(True) Then
 			StatusLabel.Text = "デバッグを開始しました"
-			System.Diagnostics.Process.Start("cmd", String.Format("/c cd ""{0}"" & gdb ""{1}"" & pause", FileDir, OutFileName))
+			System.Diagnostics.Process.Start("cmd", String.Format("/c chcp 65001 & cd ""{0}"" & gdb ""{1}"" & pause", FileDir, OutFileName))
 		End If
 	End Sub
 
