@@ -40,8 +40,18 @@ Public Class MainForm
 		SourceEditor.SetKeyBind(Keys.Shift Or Keys.Enter, AddressOf NewLine)
 		SourceEditor.SetKeyBind(Keys.Shift Or Keys.Back, AddressOf Sgry.Azuki.Actions.BackSpace)
 
+		If Environment.GetCommandLineArgs().Length > 1 Then ' Open file with arg
+			Dim filename As String = Environment.GetCommandLineArgs()(1)
+			Try
+				ReadFile(System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+				OpeningFileName = filename
+				IsSourceChanged = False
+			Catch ex As Exception When TypeOf ex Is System.IO.FileNotFoundException OrElse TypeOf ex Is System.IO.DirectoryNotFoundException
+				MessageBox.Show("ファイルが見つかりません", Application.ProductName,
+					MessageBoxButtons.OK, MessageBoxIcon.Error)
+			End Try
 
-
+		End If
 	End Sub
 
 	Private Sub ShowFontChangeDialog(sender As Object, e As EventArgs) Handles SelectFontMenuItem.Click
@@ -199,23 +209,25 @@ Public Class MainForm
 		ofd.RestoreDirectory = True
 
 		If ofd.ShowDialog() = DialogResult.OK Then
-			Dim stream As System.IO.Stream
-			stream = ofd.OpenFile()
-			If Not (stream Is Nothing) Then
-				'内容を読み込み、表示する
-				Dim sr As New System.IO.StreamReader(stream)
-				SourceEditor.Text = sr.ReadToEnd()
-				'閉じる
-				sr.Close()
-				stream.Close()
+			ReadFile(ofd.OpenFile())
+			OpeningFileName = ofd.FileName
+			IsSourceChanged = False
+			StatusLabel.Text = "ファイルを開きました"
+			SourceEditor.ClearHistory()
+		End If
+	End Sub
 
-				OpeningFileName = ofd.FileName
-				IsSourceChanged = False
-				StatusLabel.Text = "ファイルを開きました"
-				SourceEditor.ClearHistory()
-				SourceEditor.Document.IsDirty = False
-				UpdateWindow()
-			End If
+	Private Sub ReadFile(stream As System.IO.Stream)
+		If Not (stream Is Nothing) Then
+			'内容を読み込み、表示する
+			Dim sr As New System.IO.StreamReader(stream)
+			SourceEditor.Text = sr.ReadToEnd()
+			'閉じる
+			sr.Close()
+			stream.Close()
+
+			SourceEditor.Document.IsDirty = False
+			UpdateWindow()
 		End If
 	End Sub
 
