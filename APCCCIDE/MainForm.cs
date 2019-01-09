@@ -41,6 +41,16 @@ namespace APCCCIDE{
             SourceEditor.SetKeyBind(Keys.Shift | Keys.Back, Sgry.Azuki.Actions.BackSpace);
         }
 
+        public MainForm(string filename) : this() {
+            try {
+                ReadFile(System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read));
+                opening_file_name = filename;
+                is_source_dirty = false;
+            } catch (Exception ex) when (ex is System.IO.FileNotFoundException || ex is System.IO.DirectoryNotFoundException) {
+                MessageBox.Show("ファイルが見つかりません", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private DialogResult ConfirmSave(){
             return MessageBox.Show("保存していない変更があります。\r\n変更を保存しますか?", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
         }
