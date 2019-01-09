@@ -295,7 +295,7 @@ namespace APCCCIDE{
                 FileDir = System.IO.Path.GetDirectoryName(opening_file_name);
                 OutFileName = System.IO.Path.GetFileNameWithoutExtension(opening_file_name) + ".exe";
                 StatusLabel.Text = "実行を開始しました";
-                System.Diagnostics.Process.Start("cmd", string.Format("/c @chcp 65001>NUL & cd \"{0}\" & \"{1}\" & pause", FileDir, OutFileName));
+                System.Diagnostics.Process.Start("cmd", string.Format("/c @chcp 65001>NUL & cd /d \"{0}\" & \"{1}\" & pause", FileDir, OutFileName));
             }
         }
 
@@ -305,7 +305,7 @@ namespace APCCCIDE{
             OutFileName = System.IO.Path.GetFileNameWithoutExtension(opening_file_name) + ".exe";
             if (ProgramCompile(true)){
                 StatusLabel.Text = "デバッグを開始しました";
-                System.Diagnostics.Process.Start("cmd", string.Format("/c @chcp 65001>NUL & cd \"{0}\" & gdb \"{1}\" & pause", FileDir, OutFileName));
+                System.Diagnostics.Process.Start("cmd", string.Format("/c @chcp 65001>NUL & cd /d \"{0}\" & gdb \"{1}\" & pause", FileDir, OutFileName));
             }
         }
 
@@ -334,9 +334,9 @@ namespace APCCCIDE{
             // コマンドラインを指定("/c"は実行後閉じるために必要)
 
             if (Debug)
-                p.StartInfo.Arguments = string.Format("/c cd \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\" -O0 -g", FileDir, FileName, OutFileName);
+                p.StartInfo.Arguments = string.Format("/c cd /d \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\" -O0 -g", FileDir, FileName, OutFileName);
             else
-                p.StartInfo.Arguments = string.Format("/c cd \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\"", FileDir, FileName, OutFileName);
+                p.StartInfo.Arguments = string.Format("/c cd /d \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\"", FileDir, FileName, OutFileName);
 
             // 起動
             p.Start();
