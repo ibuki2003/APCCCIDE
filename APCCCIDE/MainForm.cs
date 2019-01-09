@@ -129,7 +129,7 @@ namespace APCCCIDE{
             p.StartInfo.CreateNoWindow = true;
             // コマンドラインを指定("/c"は実行後閉じるために必要)
 
-            p.StartInfo.Arguments = "/c g++ --version";
+            p.StartInfo.Arguments = "/c gcc --version";
 
             // 起動
             p.Start();
@@ -334,9 +334,9 @@ namespace APCCCIDE{
             // コマンドラインを指定("/c"は実行後閉じるために必要)
 
             if (Debug)
-                p.StartInfo.Arguments = string.Format("/c cd \"{0}\" & g++ \"{1}\" -o \"{2}\" -O0 -g", FileDir, FileName, OutFileName);
+                p.StartInfo.Arguments = string.Format("/c cd \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\" -O0 -g", FileDir, FileName, OutFileName);
             else
-                p.StartInfo.Arguments = string.Format("/c cd \"{0}\" & g++ \"{1}\" -o \"{2}\"", FileDir, FileName, OutFileName);
+                p.StartInfo.Arguments = string.Format("/c cd \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\"", FileDir, FileName, OutFileName);
 
             // 起動
             p.Start();
