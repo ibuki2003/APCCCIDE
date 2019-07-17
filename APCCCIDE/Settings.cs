@@ -8,25 +8,21 @@ namespace APCCCIDE{
 
     [Serializable()]
     public class Settings{
-        // 設定を保存するフィールド
-        private string _fontName;
-        private int _fontSize;
 
         // 設定のプロパティ
-        public string FontName{
-            get{ return _fontName;}
-            set {_fontName = value;}
-        }
+        public string FontName { get; set; }
 
-        public int FontSize{
-            get {return _fontSize;}
-            set {_fontSize = value;}
-        }
+        public int FontSize { get; set; }
+
+        public LangMode langMode { get; set; }
+
+        //public 
 
         // コンストラクタ
         public Settings(){
-            _fontName = "ＭＳ ゴシック";
-            _fontSize = 16;
+            FontName = "ＭＳ ゴシック";
+            FontSize = 16;
+            langMode = LangMode.GCC99;
         }
 
         // Settingsクラスのただ一つのインスタンス

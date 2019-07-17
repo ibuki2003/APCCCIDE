@@ -59,21 +59,6 @@ namespace APCCCIDE{
             ui.Document.Replace("\r\n");
         }
 
-        private void ShowFontChangeDialog(object sender, EventArgs e){
-            FontDialog fd = new FontDialog();
-            fd.Font = SourceEditor.Font;
-            fd.FontMustExist = true;
-            fd.AllowVerticalFonts = false;
-            fd.ShowEffects = false;
-            if (fd.ShowDialog() != DialogResult.Cancel){
-                // TextBox1のフォントと色を変える
-                SourceEditor.Font = fd.Font;
-
-                Settings.Instance.FontName = fd.Font.Name;
-                Settings.Instance.FontSize = (int)fd.Font.Size;
-            }
-        }
-
         private void QuitMenu_Click(object sender, EventArgs e){
             this.Close();
         }
@@ -86,7 +71,6 @@ namespace APCCCIDE{
                 else if (r == DialogResult.Yes)
                     SaveFile();
             }
-            Settings.SaveToXmlFile();
         }
 
         private void SourceChanged(object sender, EventArgs e){
@@ -164,6 +148,12 @@ namespace APCCCIDE{
             FindDialog f = new FindDialog();
             // 自分を所有者としてFormをモードレスで表示する
             f.Show(this);
+        }
+
+        private void ShowConfigDialog(object sender, EventArgs e)
+        {
+            ConfigDialog f = new ConfigDialog();
+            f.ShowDialog(this);
         }
 
 
@@ -343,11 +333,26 @@ namespace APCCCIDE{
             p.StartInfo.CreateNoWindow = true;
             // コマンドラインを指定("/c"は実行後閉じるために必要)
 
+            string cmd = "/c cd /d \"{0}\" & ";
+            switch (Settings.Instance.langMode) {
+                case LangMode.GCC99:
+                    cmd += "gcc -std=c99";
+                    break;
+                case LangMode.GCC11:
+                    cmd += "gcc -std=c11";
+                    break;
+                case LangMode.GPP11:
+                    cmd += "g++ -std=c++11";
+                    break;
+                case LangMode.GPP14:
+                    cmd += "g++ -std=c++14";
+                    break;
+            }
+            cmd += " \"{1}\" -o \"{2}\"";
             if (Debug)
-                p.StartInfo.Arguments = string.Format("/c cd /d \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\" -O0 -g", FileDir, FileName, OutFileName);
-            else
-                p.StartInfo.Arguments = string.Format("/c cd /d \"{0}\" & gcc -std=c11 \"{1}\" -o \"{2}\"", FileDir, FileName, OutFileName);
+                cmd += " -O0 -g";
 
+            p.StartInfo.Arguments = string.Format(cmd, FileDir, FileName, OutFileName);
             // 起動
             p.Start();
 
@@ -394,6 +399,10 @@ namespace APCCCIDE{
             Regex r = new Regex(@"([\\*+\.?{}()\[\]^$\-|])", RegexOptions.Compiled);
             str = r.Replace(str, @"\$1");
             return str;
+        }
+
+        public void SetFont(Font font) {
+            this.SourceEditor.Font = font;
         }
     }
 }

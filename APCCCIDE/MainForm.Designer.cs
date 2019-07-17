@@ -39,7 +39,7 @@
             this.ToolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.QuitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EditMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectFontMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ConfigMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FindMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProgramMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.RunMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -158,6 +158,7 @@
             this.OpenMenuItem,
             this.SaveMenuItem,
             this.SaveAsMenuItem,
+            this.ConfigMenuItem,
             this.ToolStripMenuItem1,
             this.QuitMenuItem});
             this.FileMenu.Name = "FileMenu";
@@ -212,18 +213,17 @@
             // EditMenu
             // 
             this.EditMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.SelectFontMenuItem,
             this.FindMenuItem});
             this.EditMenu.Name = "EditMenu";
             this.EditMenu.Size = new System.Drawing.Size(57, 20);
             this.EditMenu.Text = "編集(&E)";
             // 
-            // SelectFontMenuItem
+            // ConfigMenuItem
             // 
-            this.SelectFontMenuItem.Name = "SelectFontMenuItem";
-            this.SelectFontMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.SelectFontMenuItem.Text = "フォント設定...";
-            this.SelectFontMenuItem.Click += new System.EventHandler(this.ShowFontChangeDialog);
+            this.ConfigMenuItem.Name = "ConfigMenuItem";
+            this.ConfigMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.ConfigMenuItem.Text = "設定...";
+            this.ConfigMenuItem.Click += new System.EventHandler(this.ShowConfigDialog);
             // 
             // FindMenuItem
             // 
@@ -342,7 +342,7 @@
         private System.Windows.Forms.ToolStripMenuItem HelpMenu;
         private System.Windows.Forms.ToolStripMenuItem ProgramMenu;
         private System.Windows.Forms.ToolStripMenuItem RunMenu;
-        private System.Windows.Forms.ToolStripMenuItem SelectFontMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ConfigMenuItem;
         private System.Windows.Forms.ToolStripMenuItem QuitMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveMenuItem;
