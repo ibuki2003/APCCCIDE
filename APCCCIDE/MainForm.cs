@@ -374,14 +374,19 @@ namespace APCCCIDE{
                 ErrorTextBox.Text = results;
 
                 // ErrorMsg
-                System.Text.RegularExpressions.MatchCollection mc = System.Text.RegularExpressions.Regex.Matches(results, @"^[\w.]+:(\d+):(\d+): ", System.Text.RegularExpressions.RegexOptions.Multiline);
+                System.Text.RegularExpressions.MatchCollection mc = System.Text.RegularExpressions.Regex.Matches(
+                    results,
+                    //@"^[\w.]+:(?<row>\d+):(?<col>\d+): (?:error|エラー): .+(?:\r?\n.+\r?\n(?<spaces> +)\^(?<first_tildes>~*)(?:\r?\n.+\r?\n +(?<trailing_tildes>~+))*)?",
+                    @"^[\w.]+:(?<row>\d+):(?<col>\d+): (?:error|エラー): .+(?:\r?\n.+\r?\n(?<spaces> +)\^(?<first_tildes>~*))?",
+                    System.Text.RegularExpressions.RegexOptions.Multiline);
                 foreach (System.Text.RegularExpressions.Match m in mc){
                     // Console.WriteLine(m.Value)
-                    var row = int.Parse(m.Groups[1].Value);
-                    var clm = int.Parse(m.Groups[2].Value);
+                    var row = int.Parse(m.Groups["row"].Value);
+                    var clm = int.Parse(m.Groups["col"].Value);
+                    var len = m.Groups["first_tildes"].Length + 1; // if matches length will be number of '~' plus one for '^', otherwise just 1
                     var cidx = SourceEditor.Document.GetCharIndexFromLineColumnIndex(row - 1, clm - 1);
 
-                    SourceEditor.Document.Mark(cidx, cidx + 1, MARKING_ERROR);
+                    SourceEditor.Document.Mark(cidx, cidx + len, MARKING_ERROR);
                 }
 
                 MessageBox.Show("コンパイルエラーが発生しました。", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
